@@ -199,7 +199,7 @@ BOOL CALLBACK ExpandVolSizeDlgProc (HWND hwndDlg, UINT msg, WPARAM wParam, LPARA
 			}
 			else
 			{
-				StringCbPrintfW (szTemp, sizeof(szTemp),L"Please specify the new size of the VeraCrypt volume (must be at least %I64u KB larger than the current size).",TC_MINVAL_FS_EXPAND/1024);
+				StringCbPrintfW (szTemp, sizeof(szTemp),L"Please specify the new size of the VeraCrypt volume (must be at least %I64u KiB larger than the current size).",TC_MINVAL_FS_EXPAND/1024);
 			}
 			SetWindowText (GetDlgItem (hwndDlg, IDC_BOX_HELP), szTemp);			
 
@@ -773,7 +773,7 @@ void ExpandVolumeWizard (HWND hwndDlg, wchar_t *lpszVolume)
 		{
 			if ( (newVolumeSize < hostSize + TC_MINVAL_FS_EXPAND) && ((hostSize == volSize) || (newVolumeSize != hostSize) || ((hostSize - volSize) < TC_MINVAL_FS_EXPAND)))
 			{
-				StringCbPrintfW(szTmp,sizeof(szTmp),L"New volume size too small, must be at least %I64u kB larger than the current size.",TC_MINVAL_FS_EXPAND/BYTES_PER_KB);
+				StringCbPrintfW(szTmp,sizeof(szTmp),L"New volume size too small, must be at least %I64u KiB larger than the current size.",TC_MINVAL_FS_EXPAND/BYTES_PER_KB);
 				MessageBoxW (hwndDlg, szTmp, lpszTitle, MB_OK | MB_ICONEXCLAMATION );
 				continue;
 			}
@@ -787,7 +787,7 @@ void ExpandVolumeWizard (HWND hwndDlg, wchar_t *lpszVolume)
 
 			if ( newVolumeSize>maxSizeFS )
 			{
-				StringCbPrintfW(szTmp,sizeof(szTmp),L"Maximum file size of %I64u MB on host drive exceeded.",maxSizeFS/BYTES_PER_MB);
+				StringCbPrintfW(szTmp,sizeof(szTmp),L"Maximum file size of %I64u MiB on host drive exceeded.",maxSizeFS/BYTES_PER_MB);
 				MessageBoxW (hwndDlg, L"!\n",lpszTitle, MB_OK | MB_ICONEXCLAMATION );
 				continue;
 			}
@@ -808,7 +808,7 @@ void ExpandVolumeWizard (HWND hwndDlg, wchar_t *lpszVolume)
 		if ( newVolumeSize > TC_MAX_VOLUME_SIZE )
 		{
 			// note: current limit TC_MAX_VOLUME_SIZE is 1 PetaByte
-			StringCbPrintfW(szTmp,sizeof(szTmp),L"Maximum VeraCrypt volume size of %I64u TB exceeded!\n",TC_MAX_VOLUME_SIZE/BYTES_PER_TB);
+			StringCbPrintfW(szTmp,sizeof(szTmp),L"Maximum VeraCrypt volume size of %I64u TiB exceeded!\n",TC_MAX_VOLUME_SIZE/BYTES_PER_TB);
 			MessageBoxW (hwndDlg, szTmp,lpszTitle, MB_OK | MB_ICONEXCLAMATION );
 			if (bIsDevice)
 				break; // TODO: ask to limit volume size to TC_MAX_VOLUME_SIZE
